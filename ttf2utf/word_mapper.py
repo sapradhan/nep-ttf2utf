@@ -12,13 +12,13 @@ class WordMapper(object):
     '''
 
 
-    def __init__(self, charmap, pre_rules, post_rules):
+    def __init__(self, rule):
         '''
         Constructor
         '''
-        self.char_mapper = charmap
-        self.pre_rules= pre_rules
-        self.post_rules = post_rules
+        self.char_mapper = rule.charmap
+        self.pre_rules= rule.pre_rules
+        self.post_rules = rule.post_rules
         
     def convert(self, word):
         pre = word

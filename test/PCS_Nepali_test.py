@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
                         , ('e]mNg\'', 'झेल्नु')
                         , ('em]Ng\'', 'झेल्नु')
                         , ('emfs|L', 'झाक्री')
+#                         , ('emfj|mL', 'झाक्री')
                         , (':ofk|m\'a]zL', 'स्याफ्रुबेशी')
                         , ('O{Zj/', 'ईश्वर')
                         , ('kf}jf', 'पौवा')
@@ -43,9 +44,10 @@ class Test(unittest.TestCase):
                         , ('cf]vtL', 'ओखती')
                         , ('P]gf', 'ऐना')
                         , ('hfcf}+', 'जाऔं')
+                        , ('-s_', '(क)')
+                        , ('1234567890', '१२३४५६७८९०')
                         ] 
-        self.word_mapper = WordMapper(PCS_Nepali_rules.charmap,
-                                       PCS_Nepali_rules.pre_rules, PCS_Nepali_rules.post_rules)
+        self.word_mapper = WordMapper(PCS_Nepali_rules)
 
     def test(self):
         for vec in self.vectors:
