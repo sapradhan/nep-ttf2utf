@@ -25,7 +25,7 @@ from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 import argparse
 from ttf2utf.word_mapper import WordMapper
-from ttf2utf.rules import PCS_Nepali_rules
+from ttf2utf.rules import PCS_Nepali_rules, Preeti_rules
 import re
 
 __all__ = []
@@ -85,7 +85,6 @@ USAGE
         # Process arguments
         args = parser.parse_args()
         
-#         paths = args.paths
         verbose = args.verbose
         in_file = args.input
         out_file = args.output
@@ -93,20 +92,16 @@ USAGE
         if verbose > 0:
             print("Verbose mode on %d" % verbose)
             
-        word_mapper = WordMapper(PCS_Nepali_rules.charmap, PCS_Nepali_rules.pre_rules, PCS_Nepali_rules.post_rules)
+        word_mapper = WordMapper(Preeti_rules)
         spliter = re.compile(r'(\s+|\S+)')
             
         for x in in_file:
             for y in re.findall(spliter, x):
                 out_file.write(word_mapper.convert(y))
-#             out_file.write('\r')
             
         out_file.close()
         in_file.close()
         
-#         for inpath in paths:
-#             ### do something with inpath ###
-#             print(inpath)
         return 0
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###

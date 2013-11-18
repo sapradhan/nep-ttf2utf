@@ -19,6 +19,7 @@ post_rules = [
              , (re.compile('इ\{'), 'ई')
              , (re.compile('ि((.्)*[^्])'), '\\1ि')  # shift ि behind next full consonant
              , (re.compile('(.[ािीुूृेैोौंःँ]*)\{'), 'र्\\1')  # shift reph infront of preceding consonant skipping all vowels 
+             , (re.compile('([ंँ])([ािीुूृेैोौः]*)'), '\\2\\1')  # shift all anuswar and chandrabindu after vowels  
              , (re.compile('अाे'), 'ओ')  
              , (re.compile('अाै'), 'औ')  
              , (re.compile('अा'), 'आ')
