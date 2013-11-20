@@ -20,18 +20,18 @@ It defines classes_and_methods
 
 import sys
 import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from argparse import ArgumentParser
-from argparse import RawDescriptionHelpFormatter
-import argparse
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
+from ttf2utf.rules import Preeti_rules, PCS_Nepali_rules
 from ttf2utf.word_mapper import WordMapper
-from ttf2utf.rules import PCS_Nepali_rules, Preeti_rules
+import argparse
 import re
 
 __all__ = []
 __version__ = '0.1-alpha'
 __date__ = '2013-11-17'
-__updated__ = '2013-11-17'
+__updated__ = '2013-11-20'
 
 DEBUG = 0
 TESTRUN = 0
@@ -78,6 +78,7 @@ USAGE
         parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %(default)s]")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
+        parser.add_argument('-f', '--font', dest='font', help='Font selection preeti or pcs', default='preeti')
         parser.add_argument('input', help='input file', type=argparse.FileType('r') )
         parser.add_argument('output', help='output file', type=argparse.FileType(mode='w') )
 #         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='1')
@@ -88,11 +89,16 @@ USAGE
         verbose = args.verbose
         in_file = args.input
         out_file = args.output
+        font = args.font
         
-        if verbose > 0:
+        if verbose != None and verbose > 0:
             print("Verbose mode on %d" % verbose)
             
-        word_mapper = WordMapper(Preeti_rules)
+        if font.strip().lower() == 'pcs':
+            word_mapper = WordMapper(PCS_Nepali_rules)
+        else:
+            word_mapper = WordMapper(Preeti_rules)
+            
         spliter = re.compile(r'(\s+|\S+)')
             
         for x in in_file:
