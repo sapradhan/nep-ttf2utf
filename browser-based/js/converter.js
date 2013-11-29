@@ -1,36 +1,43 @@
-/*rule structure {	'pre-rules':[[/regex/ , 'replacement'] ...], 
-					'char-map':{'x': 'yy', ...}, 
-					'post-rules':[] }
-*/
+/*rule structure {	'pre-rules':[[/regex/ , 'replacement'] ...],
+ 'char-map':{'x': 'yy', ...},
+ 'post-rules':[[/regex/ , 'replacement'] ...] }
+ */
 
-var rules = {} // {'font' : rule, ... } 
+var rules = {}// {'font' : rule, ... }
 
 _build_regex = function(rule_array) {
-	var ret = []
-	if (rule_array)
-		jQuery.each(rule_array, 
-			function(r){
-				rule = []
-				jQuery.each(r, function(s, rep) { 
-					rule.push(new RegExp(s))
-					rule.push(rep)
-				})
-				ret.push(rules)
-			})
-	return ret
+	if (jQuery.isArray(rule_array))
+		jQuery.each(rule_array, function(i, r) {
+			r[0] = new RegExp(r[0])
+			r[1] = r[1].replace(/\\\\/g, '$')
+		})
 }
+_fix_rules = function(all_rules) {
 
-_load_rules = function(name, file) {
-	$.ajax ({url: file, success: function (data, textStatus, jqXHR) {
-		var yRule = jsyaml.load(data)
-		var rules = {'pre-rules':[], 'post-rules':[], 'char-map':{}}
-		rules['char-map'] = yRule['char-map']
-		rules['pre-rules'] = _build_regex(yRule['pre-rules'])
-		rules['post-rules'] = _build_regex(yRule['post-rules'])
-	}})
-	.fail(function () { alert('rule '+ name+' at '+file+' not found ') }) 
+	jQuery.each(all_rules, function(k, v) {
+		jQuery.each(all_rules, function(k, v) {
+			_build_regex(v['post-rules'])
+			_build_regex(v['pre-rules'])
+		})
+	})
 }
+word_convert = function(word, rule) {
+	var pre_rules = rule['pre-rules']
+	var char_map = rule['char-map']
+	var post_rules = rule['post-rules']
 
-word_convert = function(word) { 
-	
+	if (jQuery.isArray(pre_rules))
+		jQuery.each(pre_rules, function(i, rule) {
+			word = word.replace(rule[0], rule[1])
+		})
+	word = jQuery.map(word.split(''), function(x) {
+		return ( x in char_map) ? char_map[x] : x
+	}).join('')
+
+	if (jQuery.isArray(post_rules))
+		jQuery.each(post_rules, function(i, rule) {
+			word = word.replace(rule[0], rule[1])
+		})
+
+	return word
 }

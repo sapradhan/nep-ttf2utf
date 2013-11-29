@@ -9,7 +9,7 @@ import re
 pre_rules = []
 post_rules = [ 
              (re.compile('्ा'), '')  # 
-             , (re.compile('((?<=त्)[^र त]+?)m'), 'm\\1')  # shift m just after त्र त्त 
+             , (re.compile('(त्र|त्त)([^उभप]+?)m'), '\\1m\\2')  # shift m just after त्र त्त 
              , (re.compile('त्रm'), 'क्र')
              , (re.compile('त्तm'), 'क्त')
              , (re.compile('([^उभप]+?)m'), 'm\\1')  # shift m just after उ भ प separated from त्र त्त to avoid false match for फ्र 
