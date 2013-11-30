@@ -1,45 +1,63 @@
 nep-ttf2utf
 ===========
 
-converts text typed in using ttf fonts to unicode. port of 2utf8 in python and JS. 
+converts text typed in using ttf fonts to unicode. port of 2utf8 in **python** and **JS**. All implementations use YAML based rules. 
 
-supports multiple ttf fonts. Currenltly supported fonts are Preeti and PCS Nepali, adding support for new fonts is easy as well.
+### Supports multiple ttf fonts. 
+Currenltly supported fonts are 
 
+- Preeti 
+- PCS Nepali
 
-**Requires Python 3** 
+adding support for new fonts is fairly easy as well.
+
+##JS impl
+
+Ported to JS for ease of distribution. 
+
+**Just open `js/converter.html` in any recent browser.**
+
+It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports\to_js.py` to update `\js\all_rules.js` which basically converts the YAML to JSON.
+
+##Python impl
+**Requires**
+**Python 3**. 
 I could not get unicode regex to work with Python 2.7, looking for workarounds
 
 and **PyYAML**. It is a small download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
 
 Summary of instructions to install PyYAML
+
 - Download distribution above link. I used version 3.10
 - Extract and cd to the directory. 
 - run `python setup.py install`
 - to verify try running `import yaml` in python REPL.
 
-to run 
-======
+###to run 
+
 - cd to `nep-ttf2utf`
 - run `python ttf2utf/main.py input.txt output.txt`
 - to select between PCS Nepali and Preeti use `-f` switch. Default is Preeti. `python ttf2utf/main.py -f pcs_nepali input.txt output.txt`
 - run `python ttf2utf/main.py -h` for help
 
 
-Writing Rules
-=============
+##sed scripts
 
-All the conversion rules are located in rules folder in YAML files, one for each supported font. YAML was chosen over JSON or XML because of its readability and also because it allowed comments in it
+YAML rules can also be used to generate sed scripts. Simply run `ports/to_sed.py` to generate the sed scriptes to `sed/` directory. Done just because `2utf8` was implemented using bash and sed.
+
+##Writing Rules
+
+All the conversion rules are located in rules folder in YAML files, one for each supported font. 
+
+*YAML was chosen over JSON or XML because of its readability and support for comments*
+
 There are three sections in a YAML rule:
-- pre-rules: These regexes are run **before** character mapping (currently empty for all implemented rules)
-- char-map: This maps a single character in input to one or more Unicode character 
-- post-rules: A series of regex replaces that is carried out **after** character mapping (contains bulk of the conversion rules)
 
-JS implementation
-=================
+- **pre-rules**: These regexes are run **before** character mapping (currently empty for all implemented rules)
+- **char-map**: This maps a single character in input to one or more Unicode character 
+- **post-rules**: A series of regex replaces that is carried out **after** character mapping (contains bulk of the conversion rules)
 
-Ported to JS for ease of distribution, only a browser is needed which is ubiquitous. It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports\to_js.py` to update `\js\all_rules.js` which basically converts the YAML to JSON.
+Few hints for adding support for a new font
 
-sed scripts
-===========
-
-YAML rules can also be used to generate `sed` scripts. Simply run `ports/to_sed.py` to generate the sed scriptes to `sed` directory  
+- `map/` contains `template.odt` which should be helpful to generate character mappings. Just change the font to figure out char mappings.
+- `test/vector` contains test vectors. make sure to add/update when making changes. First update `vector.ods` and export required sheets tab separated CSV to generate `.vector` files. This ensures everything is properly documented.
