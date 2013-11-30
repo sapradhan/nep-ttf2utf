@@ -10,7 +10,7 @@ import os
 
     
 YAML_PATH = '../rules/'
-JSON_PATH = '../browser-based/js/all_rules.js'
+JSON_PATH = '../js/js/all_rules.js'
 def port_JS():
     all_rules = {}
     with open(JSON_PATH, mode='w', encoding='utf-8') as json_file:
