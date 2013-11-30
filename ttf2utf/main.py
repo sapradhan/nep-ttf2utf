@@ -3,7 +3,7 @@
 '''
 ttf2utf.main -- ttf to utf converter
 
-ttf2utf.main converts text typed in ttf fonts like Preeti PCS Nepali to Unicode.
+ttf2utf.main converts text typed in ttf fonts like Preeti, PCS Nepali to Unicode.
 Supports selection of fonts
 
 It defines classes_and_methods
@@ -15,7 +15,7 @@ It defines classes_and_methods
 @license:    Apache License 2.0
 
 @contact:    nepalitankan.blogspot.com
-@deffield    updated: Updated
+@deffield    updated: 2013-11-30
 '''
 
 import sys
@@ -23,15 +23,13 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
-from ttf2utf.rules import Preeti_rules, PCS_Nepali_rules
-from ttf2utf.word_mapper import WordMapper
+from ttf2utf import rules_loader, converter
 import argparse
-import re
 
 __all__ = []
-__version__ = '0.1-alpha'
+__version__ = '0.1-beta'
 __date__ = '2013-11-17'
-__updated__ = '2013-11-20'
+__updated__ = '2013-11-30'
 
 DEBUG = 0
 TESTRUN = 0
@@ -74,11 +72,12 @@ USAGE
 ''' % (program_shortdesc, str(__date__))
 
     try:
+        all_rules = rules_loader.load_rules('rules/')
         # Setup argument parser
         parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %(default)s]")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
-        parser.add_argument('-f', '--font', dest='font', help='Font selection preeti or pcs', default='preeti')
+        parser.add_argument('-f', '--font', dest='font', help='Font selection', choices=all_rules.keys(), default='preeti')
         parser.add_argument('input', help='input file', type=argparse.FileType('r') )
         parser.add_argument('output', help='output file', type=argparse.FileType(mode='w') )
 #         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='1')
@@ -94,19 +93,11 @@ USAGE
         if verbose != None and verbose > 0:
             print("Verbose mode on %d" % verbose)
             
-        if font.strip().lower() == 'pcs':
-            word_mapper = WordMapper(PCS_Nepali_rules)
-        else:
-            word_mapper = WordMapper(Preeti_rules)
-            
-        spliter = re.compile(r'(\s+|\S+)')
-            
-        for x in in_file:
-            for y in re.findall(spliter, x):
-                out_file.write(word_mapper.convert(y))
-            
-        out_file.close()
-        in_file.close()
+        try:
+            converter.convert(all_rules[font], in_file, out_file)
+        finally:            
+            out_file.close()
+            in_file.close()
         
         return 0
     except KeyboardInterrupt:
