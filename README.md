@@ -6,6 +6,7 @@ converts text typed in using ttf fonts to unicode. port of [2utf8](https://githu
 ### Supports multiple ttf fonts. 
 Currenltly supported fonts are 
 
+- Kantipur
 - Preeti 
 - PCS Nepali
 
@@ -17,7 +18,7 @@ Ported to JS for ease of distribution.
 
 **Just open `js/converter.html` in any recent browser.**
 
-It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports\to_js.py` to update `\js\all_rules.js` which basically converts the YAML to JSON.
+It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports/to_js.py` to update `js/all_rules.js` which basically converts the YAML to JSON.
 
 ##Python impl
 **Requires**
@@ -43,7 +44,7 @@ Summary of instructions to install PyYAML
 
 ##sed scripts
 
-YAML rules can also be used to generate sed scripts. Simply run `ports/to_sed.py` to generate the sed scriptes to `sed/` directory. Done just because `2utf8` was implemented using bash and sed.
+YAML rules can also be used to generate sed scripts. Run `ports/to_sed.py` to generate the sed scriptes to `sed/` directory. Done just because `2utf8` was implemented using bash and sed.
 
 ##Writing Rules
 
