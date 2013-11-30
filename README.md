@@ -1,7 +1,7 @@
 nep-ttf2utf
 ===========
 
-converts text typed in using ttf fonts to unicode. port of 2utf8 in **python** and **JS**. All implementations use YAML based rules. 
+converts text typed in using ttf fonts to unicode. port of [2utf8](https://github.com/foss-np/2utf8) in **python** and **JS**. All implementations use same conversion rules. 
 
 ### Supports multiple ttf fonts. 
 Currenltly supported fonts are 
