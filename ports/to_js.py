@@ -22,7 +22,7 @@ def port_JS():
                 rule['pre-rules'] = [(r[0], r[1].replace('\\', '$')) for r in rule['pre-rules']]
                 all_rules[rule['name'].lower()] = rule
         
-        json.dump(all_rules, json_file, ensure_ascii=False, indent=2)
+        json.dump(all_rules, json_file, ensure_ascii=False)
     
         
 port_JS()

@@ -10,11 +10,11 @@ It defines classes_and_methods
 
 @author:     sapradhan
         
-@copyright:  2013. Creative commons
+@copyright:  2013. Creative commons 3.0
         
 @license:    Apache License 2.0
 
-@contact:    nepalitankan.blogspot.com
+@contact:    http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html
 @deffield    updated: 2013-11-30
 '''
 

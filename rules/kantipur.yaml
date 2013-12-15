@@ -258,7 +258,9 @@
   - 'पm': 'फ'
   - 'इ{': 'ई'
   - 'ि((.्)*[^्])': '\1ि'  # shift ि behind next full consonant
-  - '(.[ािीुूृेैोौंःँ]*?){': 'र्\1'  # shift reph infront of preceding consonant skipping all vowels 
+  - '(.[ािीुूृेैोौंःँ]*?){': '{\1'  # shift reph infront of preceding consonant skipping all vowels 
+  - '((.्)*){': '{\1'  # shift reph infront of all half consonants as well
+  - '{': 'र्'  # expand { to half र
   - '([ंँ])([ािीुूृेैोौः]*)': '\2\1'  # shift all anuswar and chandrabindu after vowels  
   - 'अाे': 'ओ'
   - 'अाै': 'औ'
