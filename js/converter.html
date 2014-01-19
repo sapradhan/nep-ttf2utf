@@ -16,6 +16,9 @@
 				$("#button").click(function() {
 					$("#output").html(convert($("#input").val(), all_rules[$("#font").val()]))
 				})
+				$("#output").click(function() {
+					$(this).select()
+				})
 			})
 		</script>
 
@@ -32,16 +35,28 @@
 
 			}
 
+			body {
+				font-family: serif;
+			}
+
 		</style>
 	</head>
 
 	<body>
-		<textarea id="input" rows="15"> </textarea>
+		Input
+		<br/>
+		<textarea id="input" rows="15"></textarea>
 		<button id="button" value="convert">
-			convert
+			convert from
 		</button>
 		<select id="font"></select>
 		<textarea id="output" rows="15"> </textarea>
-
+		<br/>
+		<span>Report any bugs and suggestions <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">here</a></span>
+		<span style="float:right">यस बारे <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">ब्लग</a></span>
+		<br/>
+		<span>Try out a better and easier <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">Nepali traditional layout</a></span>
+		<span style="float:right">चलाउन सजिलो सुधारिएको <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">नेपाली ट्रेडिसनल लेआउट</a></span>
+		<br/>
 	</body>
 </html>

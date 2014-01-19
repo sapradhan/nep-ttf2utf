@@ -1,5 +1,6 @@
 /**
- Copyright 2013 sapradhan 
+ Creative commons 3.0 2013 sapradhan 
+ http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html
  https://github.com/sapradhan/nep-ttf2utf
 
  Licensed under the Apache License, Version 2.0 (the "License");

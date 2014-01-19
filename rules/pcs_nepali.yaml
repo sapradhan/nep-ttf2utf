@@ -1,6 +1,5 @@
 ﻿'name' : PCS Nepali
 'v' : 1.0.0
-'pre-rules' : []
 'char-map' : 
   '~': 'ङ'
   '!': 'ज्ञ'
@@ -212,24 +211,3 @@
   # 'ý' : ''   #253
   # 'þ' : ''   #254
   # 'ÿ' : ''   #255
-'post-rules' : !!pairs
-  - '्ा': ''  # 
-  - '(त्र|त्त)([^उभप]+?)m': '\1m\2'  # shift m just after त्र त्त 
-  - 'त्रm': 'क्र'
-  - 'त्तm': 'क्त'
-  - '([^उभप]+?)m': 'm\1'  # shift m just after उ भ प separated from त्र त्त to avoid false match for फ्र 
-  - 'उm': 'ऊ'
-  - 'भm': 'झ'
-  - 'पm': 'फ'
-  - 'इ{': 'ई'
-  - 'ि((.्)*[^्])': '\1ि'  # shift ि behind next full consonant
-  - '(.[ािीुूृेैोौंःँ]*?){': '{\1'  # shift reph infront of preceding consonant skipping all vowels 
-  - '((.्)*){': '{\1'  # shift reph infront of all half consonants as well
-  - '{': 'र्'  # expand { to half र
-  - '([ंँ])([ािीुूृेैोौः]*)': '\2\1'  # shift all anuswar and chandrabindu after vowels  
-  - 'अाे': 'ओ'
-  - 'अाै': 'औ'
-  - 'अा': 'आ'
-  - 'एे': 'ऐ'
-  - 'ाे': 'ो'
-  - 'ाै': 'ौ'
