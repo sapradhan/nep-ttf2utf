@@ -16,7 +16,8 @@ adding support for new fonts is fairly easy as well.
 
 Ported to JS for ease of distribution. 
 
-**Just open `js/converter.html` in any recent browser.**
+**Just open `js/converter.html` in any recent browser. Try it out [here](http://nepalitankan.appspot.com/ttf2utf/)**
+
 
 It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports/to_js.py` to update `js/all_rules.js` which basically converts the YAML to JSON.
 
@@ -54,9 +55,9 @@ All the conversion rules are located in rules folder in YAML files, one for each
 
 There are three sections in a YAML rule:
 
-- **pre-rules**: These regexes are run **before** character mapping (currently empty for all implemented rules)
-- **char-map**: This maps a single character in input to one or more Unicode character 
-- **post-rules**: A series of regex replaces that is carried out **after** character mapping (contains bulk of the conversion rules)
+- **char-map**: This maps a single character in input to one or more Unicode character. *In font specific YAML*
+- **pre-rules**: These regexes are run **before** character mapping (currently empty for all implemented rules) *In default.yaml*
+- **post-rules**: A series of regex replaces that is carried out **after** character mapping (contains bulk of the conversion rules) *In default.yaml*
 
 Few hints for adding support for a new font
 
