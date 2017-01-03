@@ -4,11 +4,12 @@ nep-ttf2utf
 converts text typed in using ttf fonts to unicode. port of [2utf8](https://github.com/foss-np/2utf8) in **python** and **JS**. All implementations use same conversion rules. 
 
 ### Supports multiple ttf fonts. 
-Currenltly supported fonts are 
+Currently supported fonts are 
 
 - Kantipur
 - Preeti 
 - PCS Nepali
+- FONTASY_HIMALI_TT
 
 adding support for new fonts is fairly easy as well.
 
@@ -24,16 +25,9 @@ It uses same YAML rules as the Python version. If YAML is updated one needs to r
 ##Python impl
 **Requires**
 **Python 3**. 
-I could not get unicode regex to work with Python 2.7, looking for workarounds
+I could not get unicode regex to work with Python 2.7.
 
-and **PyYAML**. It is a small download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
-
-Summary of instructions to install PyYAML
-
-- Download distribution above link. I used version 3.10
-- Extract and cd to the directory. 
-- run `python setup.py install`
-- to verify try running `import yaml` in python REPL.
+and **PyYAML**. Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
 
 ###to run 
 

@@ -33,7 +33,7 @@ class Test_all_vectors(unittest.TestCase):
     def test(self):
         for vfilename in glob.glob('test/vectors/*.vector'):
             print ('-------------------\n%s'%(vfilename))
-            rule = self.all_rules[os.path.splitext(os.path.basename(vfilename))[0]]
+            rule = self.all_rules[os.path.splitext(os.path.basename(vfilename))[0].lower()]
             with open(vfilename, encoding='utf-8') as v_file:
                 for line in v_file:
                     vec = line.split('\t')
