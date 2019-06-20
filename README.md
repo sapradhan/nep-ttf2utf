@@ -10,6 +10,7 @@ Currently supported fonts are
 - Preeti 
 - PCS Nepali
 - FONTASY_HIMALI_TT
+- Sagarmatha
 
 adding support for new fonts is fairly easy as well.
 
@@ -27,7 +28,7 @@ It uses same YAML rules as the Python version. If YAML is updated one needs to r
 **Python 3**. 
 I could not get unicode regex to work with Python 2.7.
 
-and **PyYAML**. Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
+and **PyYAML**. `pip install PyYAML` or Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
 
 ###to run 
 
@@ -35,6 +36,9 @@ and **PyYAML**. Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML)
 - run `python ttf2utf/main.py input.txt output.txt`
 - to select between PCS Nepali and Preeti use `-f` switch. Default is Preeti. `python ttf2utf/main.py -f pcs_nepali input.txt output.txt`
 - run `python ttf2utf/main.py -h` for help
+
+###to run tests
+- run `python -m test.Test_all_vectors`
 
 
 ##sed scripts
