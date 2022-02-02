@@ -19,6 +19,10 @@
 				$("#output").click(function() {
 					$(this).select()
 				})
+				$("#font").change( function () {
+					$('#input').css('font-family', $(this).val());
+				} );
+				$('#input').css('font-family', $("#font").val());
 			})
 		</script>
 
