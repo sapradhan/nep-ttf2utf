@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/all_rules.js"></script>
+		<script src="js/converter.js"></script>
+
+		<title>converter</title>
+		<script type="text/javascript">
+			jQuery(function(argument) {
+				_fix_rules(all_rules)
+				populate_options($('#font'))
+				$("#button").click(function() {
+					$("#output").html(convert($("#input").val(), all_rules[$("#font").val()]))
+				})
+				$("#output").click(function() {
+					$(this).select()
+				})
+			})
+		</script>
+
+		<style>
+			textarea {
+				width: 100%
+			}
+
+			div {
+				border: 1px solid black;
+			}
+
+			button {
+
+			}
+
+			body {
+				font-family: serif;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		Input
+		<br/>
+		<textarea id="input" rows="15"></textarea>
+		<button id="button" value="convert">
+			convert from
+		</button>
+		<select id="font"></select>
+		<textarea id="output" rows="15"> </textarea>
+		<br/>
+		<span>Report any bugs and suggestions <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">here</a></span>
+		<span style="float:right">यस बारे <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">ब्लग</a></span>
+		<br/>
+		<span>Try out a better and easier <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">Nepali traditional layout</a></span>
+		<span style="float:right">चलाउन सजिलो सुधारिएको <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">नेपाली ट्रेडिसनल लेआउट</a></span>
+		<br/>
+	</body>
+</html>
