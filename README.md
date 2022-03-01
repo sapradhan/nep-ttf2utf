@@ -18,7 +18,7 @@ adding support for new fonts is fairly easy as well.
 
 Ported to JS for ease of distribution. 
 
-**Just open `js/converter.html` in any recent browser. Try it out [here](http://nepalitankan.appspot.com/ttf2utf/)**
+**Just open `js/converter.html` in any recent browser. Try it out [here](https://sapradhan.github.io/nep-ttf2utf/)**
 
 
 It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports/to_js.py` to update `js/all_rules.js` which basically converts the YAML to JSON.
