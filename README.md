@@ -3,6 +3,8 @@ nep-ttf2utf
 
 converts text typed in using ttf fonts to unicode. port of [2utf8](https://github.com/foss-np/2utf8) in **python** and **JS**. All implementations use same conversion rules. 
 
+### [Online version](https://sapradhan.github.io/nep-ttf2utf/)
+
 ### Supports multiple ttf fonts. 
 Currently supported fonts are 
 
@@ -14,7 +16,7 @@ Currently supported fonts are
 
 adding support for new fonts is fairly easy as well.
 
-##JS impl
+## JS impl
 
 Ported to JS for ease of distribution. 
 
@@ -23,29 +25,29 @@ Ported to JS for ease of distribution.
 
 It uses same YAML rules as the Python version. If YAML is updated one needs to run `ports/to_js.py` to update `js/all_rules.js` which basically converts the YAML to JSON.
 
-##Python impl
+## Python impl
 **Requires**
 **Python 3**. 
 I could not get unicode regex to work with Python 2.7.
 
 and **PyYAML**. `pip install PyYAML` or Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
 
-###to run 
+### to run 
 
 - cd to `nep-ttf2utf`
 - run `python ttf2utf/main.py input.txt output.txt`
 - to select between PCS Nepali and Preeti use `-f` switch. Default is Preeti. `python ttf2utf/main.py -f pcs_nepali input.txt output.txt`
 - run `python ttf2utf/main.py -h` for help
 
-###to run tests
+### to run tests
 - run `python -m test.Test_all_vectors`
 
 
-##sed scripts
+## sed scripts
 
 YAML rules can also be used to generate sed scripts. Run `ports/to_sed.py` to generate the sed scriptes to `sed/` directory. Done just because `2utf8` was implemented using bash and sed.
 
-##Writing Rules
+## Writing Rules
 
 All the conversion rules are located in rules folder in YAML files, one for each supported font. 
 
