@@ -1,68 +1,112 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script src="js/jquery-1.10.2.min.js"></script>
-		<script src="js/all_rules.js"></script>
-		<script src="js/converter.js"></script>
 
-		<link rel="shortcut icon" href="./favicon.ico">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/all_rules.js"></script>
+	<script src="js/converter.js"></script>
 
-		<title>converter</title>
-		<script type="text/javascript">
-			jQuery(function(argument) {
-				_fix_rules(all_rules)
-				populate_options($('#font'))
-				$("#button").click(function() {
-					$("#output").html(convert($("#input").val(), all_rules[$("#font").val()]))
-				})
-				$("#output").click(function() {
-					$(this).select()
-				})
-				$("#font").change( function () {
-					$('#input').css('font-family', $(this).val());
-				} );
-				$('#input').css('font-family', $("#font").val());
+	<link rel="shortcut icon" href="./favicon.ico">
+
+	<title>converter</title>
+	<script type="text/javascript">
+
+		// --- By imxitiz ---
+		// main converter function
+		function converter() {
+			$("#output").html(convert($("#input").val(), all_rules[$("#font").val()]))
+		}
+
+		// function to add keyup event to #input
+		function addKeyUpEvent() {
+			$("#input").keyup(function () {
+				converter();
 			})
-		</script>
+		}
 
-		<style>
-			textarea {
-				width: 100%
-			}
+		// function to remove keyup event from #input
+		function removeKeyUpEvent() {
+			$("#input").off('keyup');
+		}
+		// --- End ---
 
-			div {
-				border: 1px solid black;
-			}
+		jQuery(function (argument) {
+			_fix_rules(all_rules)
+			populate_options($('#font'))
+			$("#button").click(function () {
+				converter();
+			})
+			$("#output").click(function () {
+				$(this).select()
+			})
+			$("#font").change(function () {
+				$('#input').css('font-family', $(this).val());
+			});
+			$('#input').css('font-family', $("#font").val());
 
-			button {
+			// --- By imxitiz ---
+			// set up the auto checkbox
+			$("#auto").change(function () {
+				if ($(this).is(':checked')) {
+					addKeyUpEvent();
+					converter();
+				} else {
+					removeKeyUpEvent();
+				}
+			});
 
-			}
+			// setup Automatic conversion as default
+			addKeyUpEvent();
 
-			body {
-				font-family: serif;
-			}
+			// conversion is done on font change
+			$("#font").change(function () {
+				converter();
+			})
+			// --- End---
+		})
+	</script>
 
-		</style>
-	</head>
+	<style>
+		textarea {
+			width: 100%
+		}
 
-	<body>
-		Input Font: <select id="font"></select>
-		<br/>
-		<textarea id="input" rows="15" placeholder="oxfF k]:6 ug{';\"></textarea>
-		<button id="button" value="convert">
-			convert to unicode
-		</button>
-		
-		<textarea id="output" rows="15"> </textarea>
-		<br/>
-		<span>Report any bugs and suggestions <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">here</a></span>
-		<span style="float:right">यस बारे <a href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">ब्लग</a></span>
-		<br/>
-		<span>Try out a better and easier <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">Nepali traditional layout</a></span>
-		<span style="float:right">चलाउन सजिलो सुधारिएको <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">नेपाली ट्रेडिसनल लेआउट</a></span>
-		<br/>
-	</body>
+		div {
+			border: 1px solid black;
+		}
+
+		body {
+			font-family: serif;
+		}
+	</style>
+</head>
+
+<body>
+	Input Font: <select id="font"></select>
+	<!---By imxitiz --->
+	<input type="checkbox" id="auto" checked>
+	<label for="auto">Auto Convert</label>
+	<!---End --->
+	<br />
+	<textarea id="input" rows="15" placeholder="oxfF k]:6 ug{';\" autofocus></textarea>
+	<button id="button" value="convert">
+		Convert to Unicode
+	</button>
+
+	<textarea id="output" rows="15"> </textarea>
+	<br />
+	<span>Report any bugs and suggestions <a
+			href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">here</a></span>
+	<span style="float:right">यस बारे <a
+			href="http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html">ब्लग</a></span>
+	<br />
+	<span>Try out a better and easier <a href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">Nepali
+			traditional layout</a></span>
+	<span style="float:right">चलाउन सजिलो सुधारिएको <a
+			href="http://nepalitankan.blogspot.com/2013/10/nepali-traditional.html">नेपाली ट्रेडिसनल लेआउट</a></span>
+	<br />
+</body>
+
 </html>
