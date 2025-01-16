@@ -17,7 +17,7 @@ def load_rules(yaml_path):
         if name == DEFAULTS_FILE: 
             continue
         with open(yaml_path + name, encoding='utf-8') as infile:
-            rule = yaml.load(infile)
+            rule = yaml.safe_load(infile)
             # TODO allow each rule to override and add to default rules
             rule['post-rules'] = default['post-rules']
             rule['pre-rules'] = default['pre-rules']
@@ -28,7 +28,7 @@ def load_rules(yaml_path):
 
 def load_defaults(yaml_path):
     with open(yaml_path + DEFAULTS_FILE, encoding='utf-8') as infile:
-        default = yaml.load(infile)
+        default = yaml.safe_load(infile)
         default['post-rules'] = [(re.compile(r[0]), r[1]) for r in default['post-rules']]
         default['pre-rules'] = [(re.compile(r[0]), r[1]) for r in default['pre-rules']]
     
