@@ -1,5 +1,4 @@
 /**
- Creative commons 3.0 2013 sapradhan 
  http://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html
  https://github.com/sapradhan/nep-ttf2utf
 
@@ -21,59 +20,152 @@
  'post-rules':[[/regex/ , 'replacement'] ...] }
  */
 
-var rules = {}// {'font' : rule, ... }
+const DEVA_TO_WESTERN = [
+	["०", "0"],
+	["१", "1"],
+	["२", "2"],
+	["३", "3"],
+	["४", "4"],
+	["५", "5"],
+	["६", "6"],
+	["७", "7"],
+	["८", "8"],
+	["९", "9"],
+]
 
-_build_regex = function(rule_array) {
-	if (jQuery.isArray(rule_array))
-		jQuery.each(rule_array, function(i, r) {
+const DEVA_TO_NEWA = {
+	"अ": "𑐀",
+	"आ": "𑐁",
+	"इ": "𑐂",
+	"ई": "𑐃",
+	"उ": "𑐄",
+	"ऊ": "𑐅",
+	"ऋ": "𑐆",
+	"ॠ": "𑐇",
+	"ऌ": "𑐈",
+	"ॡ": "𑐉",
+	"ए": "𑐊",
+	"ऐ": "𑐋",
+	"ओ": "𑐌",
+	"औ": "𑐍",
+	"क": "𑐎",
+	"ख": "𑐏",
+	"ग": "𑐐",
+	"घ": "𑐑",
+	"ङ": "𑐒",
+	"च": "𑐔",
+	"छ": "𑐕",
+	"ज": "𑐖",
+	"झ": "𑐗",
+	"ञ": "𑐘",
+	"ट": "𑐚",
+	"ठ": "𑐛",
+	"ड": "𑐜",
+	"ढ": "𑐝",
+	"ण": "𑐞",
+	"त": "𑐟",
+	"थ": "𑐠",
+	"द": "𑐡",
+	"ध": "𑐢",
+	"न": "𑐣",
+	"प": "𑐥",
+	"फ": "𑐦",
+	"ब": "𑐧",
+	"भ": "𑐨",
+	"म": "𑐩",
+	"य": "𑐫",
+	"र": "𑐬",
+	"ऱ": "𑐬",
+	"ल": "𑐮",
+	"व": "𑐰",
+	"श": "𑐱",
+	"ष": "𑐲",
+	"स": "𑐳",
+	"ह": "𑐴",
+	"०": "𑑐",
+	"१": "𑑑",
+	"२": "𑑒",
+	"३": "𑑓",
+	"४": "𑑔",
+	"५": "𑑕",
+	"६": "𑑖",
+	"७": "𑑗",
+	"८": "𑑘",
+	"९": "𑑙",
+	"॰": "𑑏",
+	"ॐ": "𑑉",
+	"।": "𑑋",
+	"॥": "𑑌",
+	",": "𑑍",
+	"ा": "𑐵",
+	"ि": "𑐶",
+	"ी": "𑐷",
+	"ु": "𑐸",
+	"ू": "𑐹",
+	"ृ": "𑐺",
+	"ॄ": "𑐻",
+	"ॢ": "𑐼",
+	"ॣ": "𑐽",
+	"े": "𑐾",
+	"ै": "𑐿",
+	"ो": "𑑀",
+	"ौ": "𑑁",
+	"्": "𑑂",
+	"ँ": "𑑃",
+	"ं": "𑑄",
+	"ः": "𑑅",
+	"़": "𑑆",
+	"ऽ": "𑑇"
+}
+
+_build_regex = function (rule_array) {
+	if (rule_array instanceof Array)
+		rule_array.forEach((r) => {
 			r[0] = new RegExp(r[0], 'g')
 			// r[1] = r[1].replace(/\\\\/g, '$')
 		})
 }
-_fix_rules = function(all_rules) {
-
-	jQuery.each(all_rules, function(k, v) {
+_fix_rules = function (all_rules) {
+	for (const [k, v] of Object.entries(all_rules)) {
 		_build_regex(v['post-rules'])
 		_build_regex(v['pre-rules'])
-	})
+	}
 }
-populate_options = function(eSelect) {
-	jQuery.each(all_rules, function(k, v) {
-		jQuery(eSelect).append(jQuery('<option>', {
-			value : k,
-			text : v['name']
-		}))
-	})
-}
-word_convert = function(word, rule) {
-	if (word.length == 0)
-		return word
-	else if (/\s/.test(word[0]))
+word_convert = function (word, rule, script, numeral) {
+	if (word.length == 0 || /\s/.test(word[0]))
 		return word
 
-	var pre_rules = rule['pre-rules']
-	var char_map = rule['char-map']
-	var post_rules = rule['post-rules']
+	const pre_rules = rule['pre-rules']
+	const char_map = rule['char-map']
+	const post_rules = rule['post-rules']
 
-	if (jQuery.isArray(pre_rules))
-		jQuery.each(pre_rules, function(i, rule) {
-			word = word.replace(rule[0], rule[1])
-		})
-	word = jQuery.map(word.split(''), function(x) {
-		return ( x in char_map) ? char_map[x] : x
-	}).join('')
+	pre_rules.forEach((rule) => {
+		word = word.replace(rule[0], rule[1])
+	})
 
-	if (jQuery.isArray(post_rules))
-		jQuery.each(post_rules, function(i, rule) {
-			word = word.replace(rule[0], rule[1])
-		})
+	word = [...word].map(x => (x in char_map) ? char_map[x] : x).join('')
+
+	post_rules.forEach(rule =>
+		word = word.replace(rule[0], rule[1])
+	)
+
+	if (numeral === 'western') {
+		DEVA_TO_WESTERN.forEach(rule =>
+			word = word.replaceAll(rule[0], rule[1])
+		)
+	}
+
+	if (script === 'prachalit') {
+		word = [...word].map(x => (x in DEVA_TO_NEWA) ? DEVA_TO_NEWA[x] : x).join('')
+	}
 
 	return word
 }
-convert = function(text, rule) {
-	return jQuery.map(text.split(/\n/), function(line) {
-		return jQuery.map(line.split(/(\s+|\S+)/), function(word) {
-			return word_convert(word, rule)
-		}).join('')
-	}).join('\n')
+convert = function (text, rule, script, numeral) {
+	return text.split(/([\r\n]+)/g).map(line => {
+		if (line.length == 0 || line[0] == '\n' || line[0] == '\r') {
+			return line
+		}
+		return line.split(/(\s+)/g).map(word => word_convert(word, rule, script, numeral)).join('')
+	}).join('')
 }

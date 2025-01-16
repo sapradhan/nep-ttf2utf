@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="js/all_rules.js"></script>
+    <script src="js/converter.js"></script>
+
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <meta charset="utf-8">
+    <meta name="description" content="Convert text from non-unicode font like Preeti to Unicode. Supports multiple fonts like PCS Nepali, Kantipur, Sagarmatha, Fontasy Himali TT etc. Supports Devanagari and Prachalit scripts">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Multi font Unicode converter">
+    <meta property="og:description" content="Multi font Unicode converter. Supports multiple non-unicode fonts and outputs to देवनागरी or 𑐥𑑂𑐬𑐔𑐮𑐶𑐟" />
+    <meta property="og:url" content="https://sapradhan.github.io/nep-ttf2utf/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://sapradhan.github.io/nep-ttf2utf/favicon.ico" />
+    <title>Multi-font Unicode Converter</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Newa&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+      textarea {
+        width: 100%;
+      }
+      #input {
+        font-size: 1.25rem;
+      }
+      button {
+        padding: 0.25rem 0.5rem;
+        margin: 0.25rem 0;
+      }
+      .container {
+        margin: 0 0.5rem;
+      }
+      .controls {
+        display: flex;
+        row-gap: .5rem;
+        column-gap: 2rem;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: .5rem;
+      }
+      .caption { 
+        display: flex;
+        justify-content: space-between;
+        padding: .5rem;
+      }
+      .noto-sans-newa-regular {
+        font-family: "Noto Sans Newa", serif;
+        font-weight: 400;
+        font-style: normal;
+      }      
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Multi-font Unicode Converter</h1>
+      <div class="controls">
+        <div>
+          <label for="font">Input Font:</label>
+          <select id="font" onchange="changeFont(); converter();"></select>
+        </div>
+
+        <div>
+          <label>Script: </label>
+          <input type="radio" value="deva" id="script-deva" name="script" checked onchange="converter()" />
+          <label for="script-deva">देवनागरी</label>
+          <input type="radio" value="prachalit" id="script-prachalit" name="script" onchange="converter()" />
+          <label class="noto-sans-newa-regular" for="numeric-native">𑐥𑑂𑐬𑐔𑐮𑐶𑐟</label>
+        </div>
+
+        <div>
+          <label>Numerals: </label>
+          <input type="radio" value="native" id="numeric-native" name="numeral" checked onchange="converter()" />
+          <label for="numeric-native">०१२३४</label>
+          <input type="radio" value="western" id="numeric-western" name="numeral" onchange="converter()" />
+          <label for="numeric-native">01234</label>
+        </div>
+
+        <!---By imxitiz --->
+        <div>
+          <label for="auto">Auto Convert </label>
+          <input
+            type="checkbox"
+            id="auto"
+            checked
+            onchange="event.target.checked ? addKeyUpEvent() : removeKeyUpEvent()"
+          />
+        </div>
+        <!---End --->
+      </div>
+      <textarea
+        id="input"
+        rows="10"
+        placeholder="oxfF k]:6 ug{';\"
+        autofocus
+      ></textarea>
+      <button id="button" value="convert" onclick="converter()">
+        Convert to Unicode
+      </button>
+      <textarea id="output" rows="10" onclick="event.target.select()"> </textarea>
+      <div class="caption">
+        <span
+          >Report any bugs and suggestions
+          <a
+            href="https://github.com/sapradhan/nep-ttf2utf"
+            >here</a
+          ></span
+        >
+        <span>यस बारे
+          <a
+            href="https://nepalitankan.blogspot.com/2013/12/preeti-ttf-to-unicode.html"
+            >ब्लग</a
+          ></span
+        >
+      </div>
+      <div class="caption">
+        <span
+          >Try out a better and easier
+          <a href="https://nepalitankan.blogspot.com/2013/10/nepali-traditional.html"
+            >Nepali traditional layout</a
+          ></span
+        >
+        <span>चलाउन सजिलो सुधारिएको
+          <a href="https://nepalitankan.blogspot.com/2013/10/nepali-traditional.html"
+            >नेपाली ट्रेडिसनल लेआउट</a
+          ></span
+        >
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // main converter function
+      function converter() {
+        document.getElementById("output").innerHTML = convert(
+          document.getElementById("input").value,
+          all_rules[document.getElementById("font").value],
+          document.querySelector("input[name='script']:checked").value,
+          document.querySelector("input[name='numeral']:checked").value
+        );
+      }
+
+      function changeFont() {
+        document.getElementById("input").style.fontFamily =
+          document.getElementById("font").value;
+      }
+
+      // --- By imxitiz ---
+      // function to add keyup event to #input
+      function addKeyUpEvent() {
+        document.getElementById("input").addEventListener("keyup", converter);
+      }
+
+      // function to remove keyup event from #input
+      function removeKeyUpEvent() {
+        document
+          .getElementById("input")
+          .removeEventListener("keyup", converter);
+      }
+      // --- End---
+
+      const populate_options = (eSelect) => {
+        for (const [k, v] of Object.entries(all_rules)) {
+          const option = document.createElement("option");
+          option.setAttribute("value", k);
+          option.appendChild(document.createTextNode(v["name"]));
+          eSelect.appendChild(option);
+        }
+        eSelect.value = 'preeti'
+      };
+
+      const ready = (fn) =>
+        document.readyState !== "loading"
+          ? fn()
+          : document.addEventListener("DOMContentLoaded", fn);
+
+      ready(function (argument) {
+        _fix_rules(all_rules);
+        populate_options(document.getElementById("font"));
+        changeFont();
+
+        // setup Automatic conversion as default
+        addKeyUpEvent();
+      });
+    </script>
+  </body>
+</html>
