@@ -71,10 +71,10 @@
 
         <div>
           <label>Script: </label>
-          <input type="radio" value="deva" id="script-deva" name="script" checked onchange="converter()" />
+          <input type="radio" value="deva" id="script-deva" name="script" checked onchange="converter();output_newa_font()" />
           <label for="script-deva">देवनागरी</label>
-          <input type="radio" value="prachalit" id="script-prachalit" name="script" onchange="converter()" />
-          <label class="noto-sans-newa-regular" for="numeric-native">𑐥𑑂𑐬𑐔𑐮𑐶𑐟</label>
+          <input type="radio" value="prachalit" id="script-prachalit" name="script" onchange="converter();output_newa_font()" />
+          <label class="noto-sans-newa-regular" for="script-prachalit">𑐥𑑂𑐬𑐔𑐮𑐶𑐟</label>
         </div>
 
         <div>
@@ -82,7 +82,7 @@
           <input type="radio" value="native" id="numeric-native" name="numeral" checked onchange="converter()" />
           <label for="numeric-native">०१२३४</label>
           <input type="radio" value="western" id="numeric-western" name="numeral" onchange="converter()" />
-          <label for="numeric-native">01234</label>
+          <label for="numeric-western">01234</label>
         </div>
 
         <!---By imxitiz --->
@@ -176,6 +176,21 @@
         }
         eSelect.value = 'preeti'
       };
+
+      function output_newa_font() { 
+        const script = document.querySelector("input[name='script']:checked").value
+        const numeral_native_label = document.querySelector("label[for='numeric-native']")
+        const output = document.getElementById("output")
+        if (script === "prachalit") {
+          output.classList.add("noto-sans-newa-regular")
+          numeral_native_label.classList.add("noto-sans-newa-regular")
+          numeral_native_label.innerHTML = '𑑐𑑑𑑒𑑓𑑔'
+        } else {
+          output.classList.remove("noto-sans-newa-regular")
+          numeral_native_label.classList.remove("noto-sans-newa-regular")
+          numeral_native_label.innerHTML = '०१२३४'
+        }
+      }
 
       const ready = (fn) =>
         document.readyState !== "loading"
