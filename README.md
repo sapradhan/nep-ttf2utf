@@ -28,7 +28,6 @@ It uses same YAML rules as the Python version. If YAML is updated one needs to r
 ## Python impl
 **Requires**
 **Python 3**. 
-I could not get unicode regex to work with Python 2.7.
 
 and **PyYAML**. `pip install PyYAML` or Download from [PyYAML page](http://pyyaml.org/wiki/PyYAML) 
 
@@ -36,12 +35,12 @@ and **PyYAML**. `pip install PyYAML` or Download from [PyYAML page](http://pyyam
 
 - cd to `nep-ttf2utf`
 - run `python ttf2utf/main.py input.txt output.txt`
-- to select between PCS Nepali and Preeti use `-f` switch. Default is Preeti. `python ttf2utf/main.py -f pcs_nepali input.txt output.txt`
-- run `python ttf2utf/main.py -h` for help
+- to select between fonts use `-f` switch. Default is Preeti. `python ttf2utf/main.py -f pcs_nepali input.txt output.txt`
+- run `python ttf2utf/main.py -h` for list of all supported fonts and other help
 
 ### to run tests
 - run `python -m test.Test_all_vectors`
-
+- run `python -m test.Block_Test`
 
 ## sed scripts
 
@@ -62,4 +61,4 @@ There are three sections in a YAML rule:
 Few hints for adding support for a new font
 
 - `map/` contains `template.odt` which should be helpful to generate character mappings. Just change the font to figure out char mappings.
-- `test/vector` contains test vectors. make sure to add/update when making changes. First update `vector.ods` and export required sheets tab separated CSV to generate `.vector` files. This ensures everything is properly documented.
+- `test/vector` contains test vectors. make sure to add/update when making changes. First update `vector.ods` and export required sheets as CSV with tab delimiter to generate `.tsv` files. This ensures everything is properly documented.

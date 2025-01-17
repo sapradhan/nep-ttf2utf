@@ -25,9 +25,9 @@ from ttf2utf import rules_loader, converter
 import argparse
 
 __all__ = []
-__version__ = '0.1-rc1'
+__version__ = '1.0'
 __date__ = '2013-11-17'
-__updated__ = '2014-01-19'
+__updated__ = '2025-01-16'
 
 DEBUG = 0
 TESTRUN = 0
@@ -77,7 +77,7 @@ USAGE
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
         parser.add_argument('-f', '--font', dest='font', help='Font selection [default: %(default)s]', choices=all_rules.keys(), default='preeti')
         parser.add_argument('input', help='input file', type=argparse.FileType('r') )
-        parser.add_argument('output', help='output file', type=argparse.FileType(mode='w') )
+        parser.add_argument('output', help='output file. output to stdout if not supplied', type=argparse.FileType(mode='w'), default='-')
 #         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='1')
         
         # Process arguments
