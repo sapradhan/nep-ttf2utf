@@ -17,7 +17,7 @@ def port_JS():
     all_rules = {}
     defaults = load_defaults()
     with open(JSON_PATH, mode='w', encoding='utf-8') as json_file:
-        json_file.write('var all_rules = ')
+        json_file.write('const all_rules = ')
         for name in os.listdir(YAML_PATH):
             if name == DEFAULTS_FILE: 
                 continue
