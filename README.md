@@ -62,3 +62,9 @@ Few hints for adding support for a new font
 
 - `map/` contains `template.odt` which should be helpful to generate character mappings. Just change the font to figure out char mappings.
 - `test/vector` contains test vectors. make sure to add/update when making changes. First update `vector.ods` and export required sheets as CSV with tab delimiter to generate `.tsv` files. This ensures everything is properly documented.
+
+
+----
+I DONT KNOW WHO YOU ARE, OR WHERE YOU ARE! YOU ARE A LEGEND!
+TAPAI KO JINDAGI VALA HOS, SAB SOCHE JASTO HOS, VANEKO SABB PUGOSSS
+YOU AREE A MAJORRRRR LIFESAVERR GODDDAMMNNNN
