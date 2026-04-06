@@ -146,7 +146,9 @@ word_convert = function (word, rule, script, numeral) {
 		word = word.replace(rule[0], rule[1])
 	})
 
-	word = [...word].map(x => (x in char_map) ? char_map[x] : x).join('')
+	if (char_map) {
+		word = [...word].map(x => (x in char_map) ? char_map[x] : x).join('')
+	}
 
 	post_rules.forEach(rule =>
 		word = word.replace(rule[0], rule[1])

@@ -23,8 +23,10 @@ def port_JS():
                 continue
             with open(YAML_PATH + name, encoding='utf-8') as infile:
                 rule = yaml.safe_load(infile)
-                rule['post-rules'] = defaults['post-rules']
-                rule['pre-rules'] = defaults['pre-rules']
+                if not rule.get('post-rules'):
+                    rule['post-rules'] = defaults['post-rules']
+                if not rule.get('pre-rules'):
+                    rule['pre-rules'] = defaults['pre-rules']
                 all_rules[rule['name'].lower()] = rule
         
         json.dump(all_rules, json_file, ensure_ascii=False)

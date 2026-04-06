@@ -18,9 +18,10 @@ def load_rules(yaml_path):
             continue
         with open(yaml_path + name, encoding='utf-8') as infile:
             rule = yaml.safe_load(infile)
-            # TODO allow each rule to override and add to default rules
-            rule['post-rules'] = default['post-rules']
-            rule['pre-rules'] = default['pre-rules']
+            if not rule.get('post-rules'):
+                rule['post-rules'] = default['post-rules']
+            if not rule.get('pre-rules'):
+                rule['pre-rules'] = default['pre-rules']
             all_rules[rule['name'].lower().replace(' ', '_')] = rule
     
     return all_rules
